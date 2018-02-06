@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="../build/react.js"></script>
+    <script src="../build/react-dom.js"></script>
+    <script src=" ../build/browser.min.js"></script>
+  </head>
+  <body>
+    <div id="example"></div>
+    <script type="text/babel">
+    var MessageBox = React.createClass({
+      getInitialState:function(){
+        return {
+          isVisible:true,
+          titleMessage:'你好世界(来自state)',
+          subMessage:[
+          '我会搬砖',
+          '以及花式搬砖',
+          '不说了，工头叫我回去搬砖',
+        ]
+      }
+    },
+      render:function(){ 
+       return (
+          <div>
+            <h1>{this.state.titleMessage}</h1>
+            <SubMessage messages={this.state.subMessage} />
+          </div> 
+       )
+      }
+    });
+
+    var SubMessage=React.createClass({
+      propTypes:{
+        messages:React.PropTypes.array.isRequired,
+    },
+      getDefaultProps:function(){
+        return{
+          messages:['默认的子消息'],
+      }
+    },
+      render:function(){
+        var msgs=[];
+        this.props.messages.forEach(function(msg,index){
+        msgs.push(
+          <p>码农说：{msg}</p>
+        )
+    });
+        return (
+          <div>
+            {msgs}
+          </div>
+        )
+      }
+    });
+
+    var footer = React.createClass({
+      render:function(){
+      return (<h3>不好玩</h3>)
+    }
+  });
+
+    var messageBox = ReactDOM.render(
+        <MessageBox/>,
+        document.getElementById('example'),
+        function(){
+        console.log('渲染完成了');
+      }
+      );
+    </script>
+  </body>
+</html>
+ 
